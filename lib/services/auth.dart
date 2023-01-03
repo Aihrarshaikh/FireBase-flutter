@@ -19,11 +19,10 @@ class GoogleSignInProvider extends ChangeNotifier {
     );
     await FirebaseAuth.instance.signInWithCredential(credential).then((value) => {
       FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).set({
-        'name' : FirebaseAuth.instance.currentUser!.displayName
+        'name' : FirebaseAuth.instance.currentUser!.displayName,
+        'Email' : FirebaseAuth.instance.currentUser!.email
       }),
-      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).set({
-        'email' : FirebaseAuth.instance.currentUser!.email
-      }),
+
     });
     notifyListeners();
   }
