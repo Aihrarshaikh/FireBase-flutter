@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                 icon: FaIcon(FontAwesomeIcons.google),
                 label: Text("Sign In with Google"),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple),
+                    backgroundColor: Colors.indigo[900]),
               )),
         ));
   }
