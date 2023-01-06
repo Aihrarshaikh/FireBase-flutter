@@ -22,7 +22,15 @@ class GoogleSignInProvider extends ChangeNotifier {
         'name' : FirebaseAuth.instance.currentUser!.displayName,
         'Email' : FirebaseAuth.instance.currentUser!.email
       }),
-
+      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').doc(FirebaseAuth.instance.currentUser!.uid).set({
+        'movies' : []
+      }),
+      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('series').doc(FirebaseAuth.instance.currentUser!.uid).set({
+        'series' : []
+      }),
+      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('watched').doc(FirebaseAuth.instance.currentUser!.uid).set({
+      'watched' : []
+      }),
     });
     notifyListeners();
   }

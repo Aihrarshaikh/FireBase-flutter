@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Screens/watchlist.dart';
 import 'package:firebase/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,8 @@ class _profilepageState extends State<profilepage> {
       username = snap['name'];
       emailu = snap['Email'];
     });
-    print(snap['name']);
-    print(snap['Email']);
+    // print(snap['name']);
+    // print(snap['Email']);
   }
   int select = 0;
   @override
@@ -45,7 +46,10 @@ class _profilepageState extends State<profilepage> {
                 label: "Add"),
           ],
           currentIndex: select,
-          onTap: (select){
+          onTap: (select) async {
+            DocumentSnapshot snapp = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').doc(FirebaseAuth.instance.currentUser!.uid).get();
+            print(snapp['movies'][0]['moviename']);
+            print("1");
             if(select==0){
               select ==1;
               Navigator.push(
@@ -64,16 +68,45 @@ class _profilepageState extends State<profilepage> {
     body : Container(
       child: Center(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 100,
+              ),
               CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(user.photoURL!),
               ),
               Text(username.toString()),
-              Text(emailu.toString())
-            ]),
+              SizedBox(
+                height: 30,
+              ),
+            Divider(
+              color: Colors.black,
+            ),
+              ElevatedButton(
+                  onPressed: (){
+                    print(FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').get());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  watchlist()),
+                    );
+                  }, child: Text("Go to movie watch list"),
+              ),
+              ElevatedButton(onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  profilepage()),
+                );
+              }, child: Text("Go to series watch list")),
+              ElevatedButton(onPressed: (){ Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  profilepage()),
+              );}
+                  , child: Text("Go to your watched list")),
+            ]
+        ),
       ),
     ));
   }

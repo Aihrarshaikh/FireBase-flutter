@@ -82,7 +82,7 @@ class _homepageState extends State<homepage> {
                                child: Text("Submit"),
                                onPressed: () {
                                  print(movei);
-                                 FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                 FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').doc(FirebaseAuth.instance.currentUser!.uid).update({
                                    'movies' : FieldValue.arrayUnion([{
                                    "moviename" : movei
                                    }])
@@ -126,7 +126,7 @@ class _homepageState extends State<homepage> {
                               child: Text("add"),
                               onPressed: () {
                                 print(movei);
-                                FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('series').doc(FirebaseAuth.instance.currentUser!.uid).update({
                                   'Series' : FieldValue.arrayUnion([{
                                     "series name" : movei
                                   }])
@@ -169,7 +169,7 @@ class _homepageState extends State<homepage> {
                               child: Text("Submit"),
                               onPressed: () {
                                 print(movei);
-                                FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('watched').doc(FirebaseAuth.instance.currentUser!.uid).update({
                                   'done watching' : FieldValue.arrayUnion([{
                                     "name" : movei
                                   }])
