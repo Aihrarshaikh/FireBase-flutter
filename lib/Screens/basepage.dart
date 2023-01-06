@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 final user = FirebaseAuth.instance.currentUser!;
-class homescreen extends StatefulWidget {
-  homescreen({super.key});
+class profilepage extends StatefulWidget {
+  profilepage({super.key});
   @override
-  State<homescreen> createState() => _homescreenState();
+  State<profilepage> createState() => _profilepageState();
 }
-class _homescreenState extends State<homescreen> {
+class _profilepageState extends State<profilepage> {
   @override
   void initState() {
     super.initState();
