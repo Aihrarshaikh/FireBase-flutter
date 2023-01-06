@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Screens/basepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 class homepage extends StatefulWidget {
@@ -8,12 +9,41 @@ class homepage extends StatefulWidget {
   State<homepage> createState() => _homepageState();
 }
 
-List<String> movielist = [];
 String movei ="";
+int select = 0;
 class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
+        items:<BottomNavigationBarItem> [
+          BottomNavigationBarItem(icon: Icon(Icons.person,
+          color: Colors.white,),
+          label: "profile",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.list_alt,color: Colors.white,),
+              label: "Add"),
+        ],
+        currentIndex: select,
+        onTap: (select){
+          if(select==0){
+            select ==1;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  profilepage()),
+            );
+          }else{
+            select = 0;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => homepage()),
+            );
+          }
+        },
+      ),
       appBar: AppBar(
       ),
       body: Center(
@@ -60,7 +90,6 @@ class _homepageState extends State<homepage> {
                                    Navigator.pop(context)
                                  });
                                })
-
                          ],
                        );
                      });}, child: Text("ADD MOVIE"),
