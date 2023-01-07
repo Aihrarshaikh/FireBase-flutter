@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Screens/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,21 @@ class serieslist extends StatefulWidget {
   @override
   State<serieslist> createState() => _serieslistState();
 }
-
 class _serieslistState extends State<serieslist> {
+  @override
+  void initState(){
+    super.initState();
+    initialize();
+  }
+  var len = 0;
+  void initialize() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance.collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid).collection('series').doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      len = snap['Series'].length;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,16 +40,34 @@ class _serieslistState extends State<serieslist> {
                   return SizedBox(
                     height: 800,
                     child: ListView.builder(
-                        itemCount: snapshot.data?.docs.length,
+                        itemCount: len,
                         itemBuilder: (context,index){
                           DocumentSnapshot data = snapshot.data!.docs[0];
-                          return Center(child: Column(
-                            children: [
-                              Text(data['Series'][0]['series name']),
-                              Text(data['Series'][1]['series name']),
-                              Text(data['Series'][2]['series name']),
-                            ],
-                          ));
+                          final item = data['Series'][index]['series name'] ;
+                          return Dismissible(
+                            key: Key(item),
+                            onDismissed: (direction) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  loading()),
+                              );
+                              setState(() {
+                                  FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).collection("series").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                    "Series" : FieldValue.arrayRemove([{
+                                      "series name" : data['Series'][index]['series name']
+                                    }])
+                                  }).then((value) {initialize();
+                                  Navigator.pop(context);
+                                  });
+                              }
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('$item dismissed')));
+                            },
+                            child: ListTile(
+                              title: Text(item),
+                            ),
+                          );
                         }),
                   );
                 }

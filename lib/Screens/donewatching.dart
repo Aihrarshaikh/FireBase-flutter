@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'loading.dart';
 class donewatching extends StatefulWidget {
   const donewatching({Key? key}) : super(key: key);
   @override
@@ -45,13 +47,18 @@ class _donewatchingState extends State<donewatching>{
                           return Dismissible(
                             key: Key(item),
                             onDismissed: (direction) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  loading()),
+                              );
                               setState(() {
                                FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).collection("watched").doc(FirebaseAuth.instance.currentUser!.uid).update({
                                     "done watching" : FieldValue.arrayRemove([{
                                       "name" : data['done watching'][index]['name']
                                     }])
+                               }).then((value) {initialize();
+                               Navigator.pop(context);
                                });
-                               initialize();
                               });
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('$item dismissed')));
