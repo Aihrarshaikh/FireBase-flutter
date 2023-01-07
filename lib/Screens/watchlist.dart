@@ -6,23 +6,23 @@ class watchlist extends StatefulWidget {
   @override
   State<watchlist> createState() => _watchlistState();
 }
-List<dynamic> ss = [];
-void getm() async {
-
-  DocumentSnapshot snapp = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').doc(FirebaseAuth.instance.currentUser!.uid).get();
-  // print(snapp['movies'].size());
-  for(int i = 0;  i< 3;i++){
-    print(snapp['movies'][i]['moviename']);
-    ss[i] = snapp['movies'][i]['moviename'];
-  }
-}
+// List<dynamic> ss = [];
+// void getm() async {
+//
+//   DocumentSnapshot snapp = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection('movies').doc(FirebaseAuth.instance.currentUser!.uid).get();
+//   // print(snapp['movies'].size());
+//   for(int i = 0;  i< 3;i++){
+//     print(snapp['movies'][i]['moviename']);
+//     ss[i] = snapp['movies'][i]['moviename'];
+//   }
+// }
 class _watchlistState extends State<watchlist> {
   @override
-  initState() {
-    getm();
-    print("ss");
-    print(ss.length);
-  }
+  // initState() {
+  //   getm();
+  //   print("ss");
+  //   print(ss.length);
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
