@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 class serieslist extends StatefulWidget {
   const serieslist({Key? key}) : super(key: key);
   @override
@@ -8,8 +9,6 @@ class serieslist extends StatefulWidget {
 }
 
 class _serieslistState extends State<serieslist> {
-  @override
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +29,6 @@ class _serieslistState extends State<serieslist> {
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context,index){
                           DocumentSnapshot data = snapshot.data!.docs[0];
-
                           return Center(child: Column(
                             children: [
                               Text(data['Series'][0]['series name']),

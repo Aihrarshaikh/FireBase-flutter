@@ -6,10 +6,9 @@ class donewatching extends StatefulWidget {
   @override
   State<donewatching> createState() => _donewatchingState();
 }
-
-class _donewatchingState extends State<donewatching> {
+class _donewatchingState extends State<donewatching>{
   @override
-  void initState() {
+  void initState(){
     super.initState();
     initialize();
   }
@@ -22,7 +21,6 @@ class _donewatchingState extends State<donewatching> {
       len = snap['done watching'].length;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +53,6 @@ class _donewatchingState extends State<donewatching> {
                                });
                                initialize();
                               });
-                              // Then show a snackbar.
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('$item dismissed')));
                             },
