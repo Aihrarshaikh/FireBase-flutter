@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Screens/seriesList.dart';
 import 'package:firebase/Screens/watchlist.dart';
 import 'package:firebase/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'donewatching.dart';
 import 'homepage.dart';
 
 final user = FirebaseAuth.instance.currentUser!;
@@ -97,12 +99,12 @@ class _profilepageState extends State<profilepage> {
               ElevatedButton(onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  profilepage()),
+                  MaterialPageRoute(builder: (context) =>  serieslist()),
                 );
               }, child: Text("Go to series watch list")),
               ElevatedButton(onPressed: (){ Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  profilepage()),
+                MaterialPageRoute(builder: (context) =>  donewatching()),
               );}
                   , child: Text("Go to your watched list")),
             ]
