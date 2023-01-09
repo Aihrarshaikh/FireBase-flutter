@@ -51,12 +51,16 @@ class _serieslistState extends State<serieslist> {
                                 context,
                                 MaterialPageRoute(builder: (context) =>  loading()),
                               );
+                              // if(item){
+                              //   Duration(milliseconds: 200);
+                              // }
                               setState(() {
                                   FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).collection("series").doc(FirebaseAuth.instance.currentUser!.uid).update({
                                     "Series" : FieldValue.arrayRemove([{
                                       "series name" : data['Series'][index]['series name']
                                     }])
-                                  }).then((value) {initialize();
+                                  }).then((value) {
+                                    initialize();
                                   Navigator.pop(context);
                                   });
                               }
@@ -64,6 +68,7 @@ class _serieslistState extends State<serieslist> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('$item dismissed')));
                             },
+                            // resizeDuration: Duration(milliseconds: 2000),
                             child: ListTile(
                               title: Text(item),
                             ),
