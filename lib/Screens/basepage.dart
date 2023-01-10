@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/Screens/LoginScreen.dart';
 import 'package:firebase/Screens/seriesList.dart';
 import 'package:firebase/Screens/watchlist.dart';
 import 'package:firebase/main.dart';
@@ -34,6 +35,10 @@ class _profilepageState extends State<profilepage> {
   int select = 0;
   @override
   Widget build(BuildContext context) {
+    Future<void> _signOut() async {
+      await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()),(route) => false));
+
+    }
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.white,
@@ -76,11 +81,26 @@ class _profilepageState extends State<profilepage> {
               SizedBox(
                 height: 100,
               ),
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(user.photoURL!),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(user.photoURL!),
+                ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  IconButton(onPressed: _signOut, icon: Icon(Icons.exit_to_app))
+        ]
               ),
-              Text(username.toString()),
+              Padding(
+                padding: EdgeInsets.only(left: 100, top: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                    child: Text(username.toString()),
+                ),
+              ),
               SizedBox(
                 height: 30,
               ),
