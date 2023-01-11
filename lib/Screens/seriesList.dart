@@ -105,35 +105,6 @@ class _serieslistState extends State<serieslist> {
                             // component is not dragged.
                             child: ListTile(title: Text(data['Series'][index]['series name'])),
                           );
-                          // Dismissible(
-                          //   key: Key(item),
-                          //   onDismissed: (direction) {
-                          //     Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(builder: (context) =>  loading()),
-                          //     );
-                          //     // if(item){
-                          //     //   Duration(milliseconds: 200);
-                          //     // }
-                          //     setState(() {
-                          //         FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).collection("series").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                          //           "Series" : FieldValue.arrayRemove([{
-                          //             "series name" : data['Series'][index]['series name']
-                          //           }])
-                          //         }).then((value) {
-                          //           initialize();
-                          //         Navigator.pop(context);
-                          //         });
-                          //     }
-                          //     );
-                          //     ScaffoldMessenger.of(context)
-                          //         .showSnackBar(SnackBar(content: Text('$item dismissed')));
-                          //   },
-                          //   // resizeDuration: Duration(milliseconds: 2000),
-                          //   child: ListTile(
-                          //     title: Text(item),
-                          //   ),
-                          // );
                         }),
                   );
                 }
